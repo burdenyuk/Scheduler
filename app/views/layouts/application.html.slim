@@ -3,6 +3,7 @@ html
   head
     title Scheduler
     = stylesheet_link_tag "application"
+    = stylesheet_link_tag "event_calendar"
     = javascript_include_tag "application"
     = csrf_meta_tags
   body
@@ -14,12 +15,31 @@ html
             span.icon-bar
             span.icon-bar
           a.brand href='#' Scheduler
-          .nav-collapse
-            ul.nav
-              li: a href='#' Profile
+          - if user_signed_in?
+            .btn-group.pull-right
+              a.btn.dropdown-toggle href='#' data-toggle="dropdown"
+                i.icon-user = current_user.email
+                span.caret
+              ul.dropdown-menu
+                li: a href='#' Profile
+                li.divider
+                li
+                  = link_to("Sign out", destroy_user_session_path)
+          - else
+            .navbar-text.pull-right
+              = link_to("Sign in", new_user_session_path)
+              |  or 
+              = link_to("Sign up", new_user_registration_path)
     .container
       .row
-        .span9 = yield
+        .span9
+          = yield
         .span3
+          - if flash[:notice]
+            .alert.alert-success
+              button.close data-dismiss="alert" x
+              = notice
+          - if flash[:alert]
+            p.alert = alert
           h2 About project
           | Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.

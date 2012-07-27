@@ -1,4 +1,12 @@
 Scheduler::Application.routes.draw do
+  devise_for :users
+
+  root :to => "calendar#index"
+
+  match '/calendar/:year/:month/:day' => 'calendar#day'
+
+  match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
+
   get "test/index"
 
   # The priority is based upon order of creation:

@@ -7,7 +7,13 @@ gem 'rails', '3.2.6'
 
 gem 'mysql2'
 
-gem 'slim'
+gem 'devise'
+
+gem 'jquery-rails'
+
+gem 'event-calendar', :require => 'event_calendar'
+
+gem "slim-rails"
 
 group :development do
   gem 'rspec-rails', '2.6.1'
