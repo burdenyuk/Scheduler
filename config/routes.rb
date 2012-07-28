@@ -5,7 +5,7 @@ Scheduler::Application.routes.draw do
 
   match '/calendar/:year/:month/:day' => 'calendar#day'
 
-  match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
+  match '/:slug(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:slug => /[A-Za-z]+/, :year => /\d{4}/, :month => /\d{1,2}/}
 
   get "test/index"
 
